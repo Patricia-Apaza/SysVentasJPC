@@ -48,6 +48,7 @@ import pe.edu.upeu.sysventasjpc.ui.theme.LightRedColors
 import pe.edu.upeu.sysventasjpc.ui.theme.SysVentasJPCTheme
 import pe.edu.upeu.sysventasjpc.ui.theme.ThemeType
 import pe.edu.upeu.sysventasjpc.utils.TokenUtils
+import pe.edu.upeu.sysventasjpc.utils.isNight
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -56,21 +57,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val themeType = remember { mutableStateOf(ThemeType.RED) }
-            val darkThemex = isSystemInDarkTheme()
+            val darkThemex = isNight()
             val darkTheme = remember { mutableStateOf(darkThemex) }
             val colorScheme = when(themeType.value) {
-                ThemeType.RED -> {
-                    if (darkTheme.value) DarkRedColors else LightRedColors
-                }
-                ThemeType.GREEN -> {
-                    if (darkTheme.value) DarkGreenColors else LightGreenColors
-                }
-                ThemeType.RED -> {
-                    if (darkTheme.value) DarkPurpleColors else LightPurpleColors
-                }
-                else -> {
-                    LightRedColors
-                }
+                ThemeType.RED -> { if (darkTheme.value)
+                    DarkRedColors
+                else LightRedColors }
+                ThemeType.GREEN -> { if (darkTheme.value) DarkGreenColors
+                else LightGreenColors }
+                ThemeType.RED -> {if (darkTheme.value) DarkPurpleColors
+                else LightPurpleColors }
+                else -> { LightRedColors }
             }
 
             TokenUtils.CONTEXTO_APPX = this@MainActivity
@@ -108,6 +105,7 @@ fun MainScreen(
         Destinations.Pantalla3,
         Destinations.Pantalla4,
         Destinations.Pantalla5,
+        Destinations.ProductoMainSC,
     )
 
     val navigationItems2 = listOf(
